@@ -1,12 +1,13 @@
-# goldmark-links
+package links_test
 
-[Goldmark](https://github.com/yuin/goldmark) link replacer extension.
+import (
+	"log"
+	"os"
 
-support link add `rel = "nofollw"`, `target = "_blank"` and more customize attribute.
+	links "github.com/fundipper/goldmark-links"
+	"github.com/yuin/goldmark"
+)
 
-## code
-
-```go
 var source = []byte(`[website](https://fungo.dev)
 [source](https://github.com/fundipper/fungo)`)
 
@@ -26,20 +27,12 @@ func Example() {
 	if err := md.Convert(source, os.Stdout); err != nil {
 		log.Fatal(err)
 	}
+
+	// Output:
+	// <p>
+	// <a href="https://fungo.dev">website</a>
+	// </p>
+	// <p>
+	// <a href="https://github.com/fundipper/fungo" ref="nofollow" targe="_blank">source</a>
+	// </p>
 }
-```
-
-## view
-
-```html
-<p>
-	<a href="https://fungo.dev">website</a>
-</p>
-<p>
-	<a href="https://github.com/fundipper/fungo" ref="nofollow" targe="_blank">source</a>
-</p>
-```
-
-## thanks
-
-[Goldmark](https://github.com/yuin/goldmark)
